@@ -1,0 +1,42 @@
+<.header>
+  Listing Scheduler substitutions
+  <:actions>
+    <.link patch={~p"/scheduler_substitutions/new"}>
+      <.button>New Scheduler substitution</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="scheduler_substitutions"
+  rows={@streams.scheduler_substitutions}
+  row_click={fn {_id, scheduler_substitution} -> JS.navigate(~p"/scheduler_substitutions/#{scheduler_substitution}") end}
+>
+  <:col :let={{_id, scheduler_substitution}} label="Key"><%= scheduler_substitution.key %></:col>
+  <:col :let={{_id, scheduler_substitution}} label="Value"><%= scheduler_substitution.value %></:col>
+  <:action :let={{_id, scheduler_substitution}}>
+    <div class="sr-only">
+      <.link navigate={~p"/scheduler_substitutions/#{scheduler_substitution}"}>Show</.link>
+    </div>
+    <.link patch={~p"/scheduler_substitutions/#{scheduler_substitution}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, scheduler_substitution}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: scheduler_substitution.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="scheduler_substitution-modal" show on_cancel={JS.patch(~p"/scheduler_substitutions")}>
+  <.live_component
+    module={TapiiWeb.SchedulerSubstitutionLive.FormComponent}
+    id={@scheduler_substitution.id || :new}
+    title={@page_title}
+    action={@live_action}
+    scheduler_substitution={@scheduler_substitution}
+    patch={~p"/scheduler_substitutions"}
+  />
+</.modal>

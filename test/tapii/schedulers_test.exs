@@ -60,4 +60,60 @@ defmodule Tapii.SchedulersTest do
       assert %Ecto.Changeset{} = Schedulers.change_scheduler(scheduler)
     end
   end
+
+  describe "scheduler_substitutions" do
+    alias Tapii.Schedulers.SchedulerSubstitution
+
+    import Tapii.SchedulersFixtures
+
+    @invalid_attrs %{key: nil, value: nil}
+
+    test "list_scheduler_substitutions/0 returns all scheduler_substitutions" do
+      scheduler_substitution = scheduler_substitution_fixture()
+      assert Schedulers.list_scheduler_substitutions() == [scheduler_substitution]
+    end
+
+    test "get_scheduler_substitution!/1 returns the scheduler_substitution with given id" do
+      scheduler_substitution = scheduler_substitution_fixture()
+      assert Schedulers.get_scheduler_substitution!(scheduler_substitution.id) == scheduler_substitution
+    end
+
+    test "create_scheduler_substitution/1 with valid data creates a scheduler_substitution" do
+      valid_attrs = %{key: "some key", value: "some value"}
+
+      assert {:ok, %SchedulerSubstitution{} = scheduler_substitution} = Schedulers.create_scheduler_substitution(valid_attrs)
+      assert scheduler_substitution.key == "some key"
+      assert scheduler_substitution.value == "some value"
+    end
+
+    test "create_scheduler_substitution/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Schedulers.create_scheduler_substitution(@invalid_attrs)
+    end
+
+    test "update_scheduler_substitution/2 with valid data updates the scheduler_substitution" do
+      scheduler_substitution = scheduler_substitution_fixture()
+      update_attrs = %{key: "some updated key", value: "some updated value"}
+
+      assert {:ok, %SchedulerSubstitution{} = scheduler_substitution} = Schedulers.update_scheduler_substitution(scheduler_substitution, update_attrs)
+      assert scheduler_substitution.key == "some updated key"
+      assert scheduler_substitution.value == "some updated value"
+    end
+
+    test "update_scheduler_substitution/2 with invalid data returns error changeset" do
+      scheduler_substitution = scheduler_substitution_fixture()
+      assert {:error, %Ecto.Changeset{}} = Schedulers.update_scheduler_substitution(scheduler_substitution, @invalid_attrs)
+      assert scheduler_substitution == Schedulers.get_scheduler_substitution!(scheduler_substitution.id)
+    end
+
+    test "delete_scheduler_substitution/1 deletes the scheduler_substitution" do
+      scheduler_substitution = scheduler_substitution_fixture()
+      assert {:ok, %SchedulerSubstitution{}} = Schedulers.delete_scheduler_substitution(scheduler_substitution)
+      assert_raise Ecto.NoResultsError, fn -> Schedulers.get_scheduler_substitution!(scheduler_substitution.id) end
+    end
+
+    test "change_scheduler_substitution/1 returns a scheduler_substitution changeset" do
+      scheduler_substitution = scheduler_substitution_fixture()
+      assert %Ecto.Changeset{} = Schedulers.change_scheduler_substitution(scheduler_substitution)
+    end
+  end
 end

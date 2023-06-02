@@ -101,4 +101,100 @@ defmodule Tapii.Schedulers do
   def change_scheduler(%Scheduler{} = scheduler, attrs \\ %{}) do
     Scheduler.changeset(scheduler, attrs)
   end
+
+  alias Tapii.Schedulers.SchedulerSubstitution
+
+  @doc """
+  Returns the list of scheduler_substitutions.
+
+  ## Examples
+
+      iex> list_scheduler_substitutions()
+      [%SchedulerSubstitution{}, ...]
+
+  """
+  def list_scheduler_substitutions do
+    Repo.all(SchedulerSubstitution)
+  end
+
+  @doc """
+  Gets a single scheduler_substitution.
+
+  Raises `Ecto.NoResultsError` if the Scheduler substitution does not exist.
+
+  ## Examples
+
+      iex> get_scheduler_substitution!(123)
+      %SchedulerSubstitution{}
+
+      iex> get_scheduler_substitution!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_scheduler_substitution!(id), do: Repo.get!(SchedulerSubstitution, id)
+
+  @doc """
+  Creates a scheduler_substitution.
+
+  ## Examples
+
+      iex> create_scheduler_substitution(%{field: value})
+      {:ok, %SchedulerSubstitution{}}
+
+      iex> create_scheduler_substitution(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_scheduler_substitution(attrs \\ %{}) do
+    %SchedulerSubstitution{}
+    |> SchedulerSubstitution.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a scheduler_substitution.
+
+  ## Examples
+
+      iex> update_scheduler_substitution(scheduler_substitution, %{field: new_value})
+      {:ok, %SchedulerSubstitution{}}
+
+      iex> update_scheduler_substitution(scheduler_substitution, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_scheduler_substitution(%SchedulerSubstitution{} = scheduler_substitution, attrs) do
+    scheduler_substitution
+    |> SchedulerSubstitution.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a scheduler_substitution.
+
+  ## Examples
+
+      iex> delete_scheduler_substitution(scheduler_substitution)
+      {:ok, %SchedulerSubstitution{}}
+
+      iex> delete_scheduler_substitution(scheduler_substitution)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_scheduler_substitution(%SchedulerSubstitution{} = scheduler_substitution) do
+    Repo.delete(scheduler_substitution)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking scheduler_substitution changes.
+
+  ## Examples
+
+      iex> change_scheduler_substitution(scheduler_substitution)
+      %Ecto.Changeset{data: %SchedulerSubstitution{}}
+
+  """
+  def change_scheduler_substitution(%SchedulerSubstitution{} = scheduler_substitution, attrs \\ %{}) do
+    SchedulerSubstitution.changeset(scheduler_substitution, attrs)
+  end
 end

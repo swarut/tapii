@@ -19,4 +19,19 @@ defmodule Tapii.SchedulersFixtures do
 
     scheduler
   end
+
+  @doc """
+  Generate a scheduler_substitution.
+  """
+  def scheduler_substitution_fixture(attrs \\ %{}) do
+    {:ok, scheduler_substitution} =
+      attrs
+      |> Enum.into(%{
+        key: "some key",
+        value: "some value"
+      })
+      |> Tapii.Schedulers.create_scheduler_substitution()
+
+    scheduler_substitution
+  end
 end
