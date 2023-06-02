@@ -1,0 +1,41 @@
+<.header>
+  Listing Query template groups
+  <:actions>
+    <.link patch={~p"/query_template_groups/new"}>
+      <.button>New Query template group</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="query_template_groups"
+  rows={@streams.query_template_groups}
+  row_click={fn {_id, query_template_group} -> JS.navigate(~p"/query_template_groups/#{query_template_group}") end}
+>
+  <:col :let={{_id, query_template_group}} label="Name"><%= query_template_group.name %></:col>
+  <:action :let={{_id, query_template_group}}>
+    <div class="sr-only">
+      <.link navigate={~p"/query_template_groups/#{query_template_group}"}>Show</.link>
+    </div>
+    <.link patch={~p"/query_template_groups/#{query_template_group}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, query_template_group}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: query_template_group.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="query_template_group-modal" show on_cancel={JS.patch(~p"/query_template_groups")}>
+  <.live_component
+    module={TapiiWeb.QueryTemplateGroupLive.FormComponent}
+    id={@query_template_group.id || :new}
+    title={@page_title}
+    action={@live_action}
+    query_template_group={@query_template_group}
+    patch={~p"/query_template_groups"}
+  />
+</.modal>
