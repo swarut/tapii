@@ -18,6 +18,14 @@ defmodule TapiiWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/query_template_groups", QueryTemplateGroupLive.Index, :index
+    live "/query_template_groups/new", QueryTemplateGroupLive.Index, :new
+    live "/query_template_groups/:id/edit", QueryTemplateGroupLive.Index, :edit
+
+    live "/query_template_groups/:id", QueryTemplateGroupLive.Show, :show
+    live "/query_template_groups/:id/show/edit", QueryTemplateGroupLive.Show, :edit
+
   end
 
   # Other scopes may use custom stacks.
