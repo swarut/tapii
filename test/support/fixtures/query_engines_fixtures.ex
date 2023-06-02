@@ -17,4 +17,19 @@ defmodule Tapii.QueryEnginesFixtures do
 
     query_template_group
   end
+
+  @doc """
+  Generate a query_template.
+  """
+  def query_template_fixture(attrs \\ %{}) do
+    {:ok, query_template} =
+      attrs
+      |> Enum.into(%{
+        name: "some name",
+        query: "some query"
+      })
+      |> Tapii.QueryEngines.create_query_template()
+
+    query_template
+  end
 end

@@ -1,0 +1,27 @@
+<.header>
+  Query template <%= @query_template.id %>
+  <:subtitle>This is a query_template record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/query_templates/#{@query_template}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit query_template</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @query_template.name %></:item>
+  <:item title="Query"><%= @query_template.query %></:item>
+</.list>
+
+<.back navigate={~p"/query_templates"}>Back to query_templates</.back>
+
+<.modal :if={@live_action == :edit} id="query_template-modal" show on_cancel={JS.patch(~p"/query_templates/#{@query_template}")}>
+  <.live_component
+    module={TapiiWeb.QueryTemplateLive.FormComponent}
+    id={@query_template.id}
+    title={@page_title}
+    action={@live_action}
+    query_template={@query_template}
+    patch={~p"/query_templates/#{@query_template}"}
+  />
+</.modal>

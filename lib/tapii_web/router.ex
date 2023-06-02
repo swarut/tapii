@@ -19,12 +19,21 @@ defmodule TapiiWeb.Router do
 
     get "/", PageController, :home
 
+    # Query template group - index
     live "/query_template_groups", QueryTemplateGroupLive.Index, :index
     live "/query_template_groups/new", QueryTemplateGroupLive.Index, :new
     live "/query_template_groups/:id/edit", QueryTemplateGroupLive.Index, :edit
-
+    # Query template group - show
     live "/query_template_groups/:id", QueryTemplateGroupLive.Show, :show
     live "/query_template_groups/:id/show/edit", QueryTemplateGroupLive.Show, :edit
+
+    # Query template - index
+    live "/query_templates", QueryTemplateLive.Index, :index
+    live "/query_templates/new", QueryTemplateLive.Index, :new
+    live "/query_templates/:id/edit", QueryTemplateLive.Index, :edit
+    # Query template - show
+    live "/query_templates/:id", QueryTemplateLive.Show, :show
+    live "/query_templates/:id/show/edit", QueryTemplateLive.Show, :edit
 
   end
 
