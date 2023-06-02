@@ -35,6 +35,13 @@ defmodule TapiiWeb.Router do
     live "/query_templates/:id", QueryTemplateLive.Show, :show
     live "/query_templates/:id/show/edit", QueryTemplateLive.Show, :edit
 
+    # Scheduler - index
+    live "/schedulers", SchedulerLive.Index, :index
+    live "/schedulers/new", SchedulerLive.Index, :new
+    live "/schedulers/:id/edit", SchedulerLive.Index, :edit
+    # Scheduler - show
+    live "/schedulers/:id", SchedulerLive.Show, :show
+    live "/schedulers/:id/show/edit", SchedulerLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

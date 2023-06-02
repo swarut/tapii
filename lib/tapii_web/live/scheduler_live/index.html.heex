@@ -1,0 +1,43 @@
+<.header>
+  Listing Schedulers
+  <:actions>
+    <.link patch={~p"/schedulers/new"}>
+      <.button>New Scheduler</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="schedulers"
+  rows={@streams.schedulers}
+  row_click={fn {_id, scheduler} -> JS.navigate(~p"/schedulers/#{scheduler}") end}
+>
+  <:col :let={{_id, scheduler}} label="Time"><%= scheduler.time %></:col>
+  <:col :let={{_id, scheduler}} label="Occurence"><%= scheduler.occurence %></:col>
+  <:col :let={{_id, scheduler}} label="Active"><%= scheduler.active %></:col>
+  <:action :let={{_id, scheduler}}>
+    <div class="sr-only">
+      <.link navigate={~p"/schedulers/#{scheduler}"}>Show</.link>
+    </div>
+    <.link patch={~p"/schedulers/#{scheduler}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, scheduler}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: scheduler.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="scheduler-modal" show on_cancel={JS.patch(~p"/schedulers")}>
+  <.live_component
+    module={TapiiWeb.SchedulerLive.FormComponent}
+    id={@scheduler.id || :new}
+    title={@page_title}
+    action={@live_action}
+    scheduler={@scheduler}
+    patch={~p"/schedulers"}
+  />
+</.modal>

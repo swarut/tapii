@@ -1,0 +1,28 @@
+<.header>
+  Scheduler <%= @scheduler.id %>
+  <:subtitle>This is a scheduler record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/schedulers/#{@scheduler}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit scheduler</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Time"><%= @scheduler.time %></:item>
+  <:item title="Occurence"><%= @scheduler.occurence %></:item>
+  <:item title="Active"><%= @scheduler.active %></:item>
+</.list>
+
+<.back navigate={~p"/schedulers"}>Back to schedulers</.back>
+
+<.modal :if={@live_action == :edit} id="scheduler-modal" show on_cancel={JS.patch(~p"/schedulers/#{@scheduler}")}>
+  <.live_component
+    module={TapiiWeb.SchedulerLive.FormComponent}
+    id={@scheduler.id}
+    title={@page_title}
+    action={@live_action}
+    scheduler={@scheduler}
+    patch={~p"/schedulers/#{@scheduler}"}
+  />
+</.modal>
