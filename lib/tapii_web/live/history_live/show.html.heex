@@ -1,0 +1,27 @@
+<.header>
+  History <%= @history.id %>
+  <:subtitle>This is a history record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/histories/#{@history}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit history</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Status"><%= @history.status %></:item>
+  <:item title="Result"><%= @history.result %></:item>
+</.list>
+
+<.back navigate={~p"/histories"}>Back to histories</.back>
+
+<.modal :if={@live_action == :edit} id="history-modal" show on_cancel={JS.patch(~p"/histories/#{@history}")}>
+  <.live_component
+    module={TapiiWeb.HistoryLive.FormComponent}
+    id={@history.id}
+    title={@page_title}
+    action={@live_action}
+    history={@history}
+    patch={~p"/histories/#{@history}"}
+  />
+</.modal>

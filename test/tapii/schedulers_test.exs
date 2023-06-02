@@ -116,4 +116,60 @@ defmodule Tapii.SchedulersTest do
       assert %Ecto.Changeset{} = Schedulers.change_scheduler_substitution(scheduler_substitution)
     end
   end
+
+  describe "histories" do
+    alias Tapii.Schedulers.History
+
+    import Tapii.SchedulersFixtures
+
+    @invalid_attrs %{result: nil, status: nil}
+
+    test "list_histories/0 returns all histories" do
+      history = history_fixture()
+      assert Schedulers.list_histories() == [history]
+    end
+
+    test "get_history!/1 returns the history with given id" do
+      history = history_fixture()
+      assert Schedulers.get_history!(history.id) == history
+    end
+
+    test "create_history/1 with valid data creates a history" do
+      valid_attrs = %{result: %{}, status: :completed}
+
+      assert {:ok, %History{} = history} = Schedulers.create_history(valid_attrs)
+      assert history.result == %{}
+      assert history.status == :completed
+    end
+
+    test "create_history/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Schedulers.create_history(@invalid_attrs)
+    end
+
+    test "update_history/2 with valid data updates the history" do
+      history = history_fixture()
+      update_attrs = %{result: %{}, status: :cancelled}
+
+      assert {:ok, %History{} = history} = Schedulers.update_history(history, update_attrs)
+      assert history.result == %{}
+      assert history.status == :cancelled
+    end
+
+    test "update_history/2 with invalid data returns error changeset" do
+      history = history_fixture()
+      assert {:error, %Ecto.Changeset{}} = Schedulers.update_history(history, @invalid_attrs)
+      assert history == Schedulers.get_history!(history.id)
+    end
+
+    test "delete_history/1 deletes the history" do
+      history = history_fixture()
+      assert {:ok, %History{}} = Schedulers.delete_history(history)
+      assert_raise Ecto.NoResultsError, fn -> Schedulers.get_history!(history.id) end
+    end
+
+    test "change_history/1 returns a history changeset" do
+      history = history_fixture()
+      assert %Ecto.Changeset{} = Schedulers.change_history(history)
+    end
+  end
 end

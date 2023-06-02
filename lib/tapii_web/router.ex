@@ -50,6 +50,14 @@ defmodule TapiiWeb.Router do
     # Scheduler subscription - show
     live "/scheduler_substitutions/:id", SchedulerSubstitutionLive.Show, :show
     live "/scheduler_substitutions/:id/show/edit", SchedulerSubstitutionLive.Show, :edit
+
+    # History - index
+    live "/histories", HistoryLive.Index, :index
+    live "/histories/new", HistoryLive.Index, :new
+    live "/histories/:id/edit", HistoryLive.Index, :edit
+    # History - show
+    live "/histories/:id", HistoryLive.Show, :show
+    live "/histories/:id/show/edit", HistoryLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

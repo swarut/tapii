@@ -34,4 +34,19 @@ defmodule Tapii.SchedulersFixtures do
 
     scheduler_substitution
   end
+
+  @doc """
+  Generate a history.
+  """
+  def history_fixture(attrs \\ %{}) do
+    {:ok, history} =
+      attrs
+      |> Enum.into(%{
+        result: %{},
+        status: :completed
+      })
+      |> Tapii.Schedulers.create_history()
+
+    history
+  end
 end
