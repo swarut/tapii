@@ -2,6 +2,9 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
   use TapiiWeb, :live_component
 
   alias Tapii.Schedulers
+  alias Tapii.Pon
+
+  require Logger
 
   @impl true
   def render(assigns) do
@@ -74,6 +77,7 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
     case Schedulers.create_scheduler(scheduler_params) do
       {:ok, scheduler} ->
         notify_parent({:saved, scheduler})
+        Supervisor.start_link([{Pon, name: Tapii.Pon}],  strategy: :one_for_one)
 
         {:noreply,
          socket
