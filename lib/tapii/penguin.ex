@@ -20,7 +20,7 @@ defmodule Tapii.Penguin do
     {:reply, state, state}
   end
   def handle_call(:showx, _from, state) do
-    IO.puts("Stack of Penguin")
+    IO.puts("Stack of Penguin - this will fail")
     IO.inspect(state)
     # {:reply, state, state}
   end

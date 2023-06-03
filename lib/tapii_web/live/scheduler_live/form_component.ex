@@ -78,6 +78,7 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
       {:ok, scheduler} ->
         notify_parent({:saved, scheduler})
         Supervisor.start_link([{Pon, name: Tapii.Pon}],  strategy: :one_for_one)
+        GenServer.call(Penguin, :show)
 
         {:noreply,
          socket
