@@ -18,5 +18,8 @@ defmodule Tapii.SearchJobRetrieval do
     {:ok, body} = resp.body |> Poison.decode
 
     Logger.info("[#{__MODULE__}] - Retrieved result for job #{job_id}: \n #{inspect(body["records"])}")
+    Logger.info("[#{__MODULE__}] - Saving history")
+
+    Schedulers.create_history(%{result: resp.body, status: :completed, scheduler_id: 1})
   end
 end

@@ -10,7 +10,6 @@ defmodule Tapii.SearchJobRequest do
 
   def run(arg) do
     Logger.info("[#{__MODULE__}] - Going to make a request - #{arg}")
-    # Schedulers.create_history(%{result: "--#{arg}", status: :completed, scheduler_id: 1})
 
     headers = ["Authorization": "Basic c3Vlc01CZEVvRHNUYnY6bVJyUklxUUJ1MERCd3FPdjNXaXNoZ2VxMEVYNmNjM3BpYnRJdlBkRFpNaHdRN0gzdlVRYlRxUDhWNmJkVG5LbA==", "Content-Type": "application/json"]
     url = "https://api.sumologic.com/api/v1/search/jobs"
