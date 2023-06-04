@@ -2,8 +2,6 @@ defmodule Tapii.SearchJobRequest do
   use Task
   require Logger
 
-  alias Tapii.Schedulers
-
   def start_link(arg) do
     Task.start_link(__MODULE__, :run, [arg])
   end
