@@ -25,7 +25,7 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
         <.input field={@form[:time]} type="time" label="Time" />
         <.input field={@form[:occurence]} type="number" label="Occurence" />
         <.input field={@form[:active]} type="checkbox" label="Active" />
-        <.input field={@form[:query_template_id]} type="text" label="Query Template" />
+        <.input field={@form[:query_template_id]} type="select" label="Query Template" options={@query_templates} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Scheduler</.button>
         </:actions>

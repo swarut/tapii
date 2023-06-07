@@ -3,10 +3,16 @@ defmodule TapiiWeb.SchedulerLive.Index do
 
   alias Tapii.Schedulers
   alias Tapii.Schedulers.Scheduler
+  alias Tapii.QueryEngines
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :schedulers, Schedulers.list_schedulers())}
+    {
+      :ok,
+      socket
+      |> assign(:query_templates, QueryEngines.list_query_templates() |> query_templates_for_options)
+      |> stream(:schedulers, Schedulers.list_schedulers())
+    }
   end
 
   @impl true
@@ -43,5 +49,10 @@ defmodule TapiiWeb.SchedulerLive.Index do
     {:ok, _} = Schedulers.delete_scheduler(scheduler)
 
     {:noreply, stream_delete(socket, :schedulers, scheduler)}
+  end
+
+  defp query_templates_for_options(query_templates) do
+    query_templates
+    |> Enum.map(fn t -> [key: t.name, value: t.id] end)
   end
 end
