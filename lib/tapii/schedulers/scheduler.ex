@@ -5,7 +5,7 @@ defmodule Tapii.Schedulers.Scheduler do
   schema "schedulers" do
     field :active, :boolean, default: false
     field :occurence, :integer
-    field :time, :time
+    field :schedule_time, :time
     field :query_template_id, :id
 
     timestamps()
@@ -14,7 +14,7 @@ defmodule Tapii.Schedulers.Scheduler do
   @doc false
   def changeset(scheduler, attrs) do
     scheduler
-    |> cast(attrs, [:time, :occurence, :active, :query_template_id])
-    |> validate_required([:time, :occurence, :active, :query_template_id])
+    |> cast(attrs, [:schedule_time, :occurence, :active, :query_template_id])
+    |> validate_required([:schedule_time, :occurence, :active, :query_template_id])
   end
 end

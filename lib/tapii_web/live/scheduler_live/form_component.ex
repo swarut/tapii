@@ -22,7 +22,7 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:time]} type="time" label="Time" />
+        <.input field={@form[:schedule_time]} type="time" label="Schedule Time" />
         <.input field={@form[:occurence]} type="number" label="Occurence" />
         <.input field={@form[:active]} type="checkbox" label="Active" />
         <.input field={@form[:query_template_id]} type="select" label="Query Template" options={@query_templates} />
@@ -78,7 +78,6 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
       {:ok, scheduler} ->
         notify_parent({:saved, scheduler})
         Supervisor.start_link([{Pon, name: Tapii.Pon}],  strategy: :one_for_one)
-        GenServer.call(Penguin, :show)
 
         {:noreply,
          socket
@@ -94,5 +93,7 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
+  defp notify_parent(msg) do
+    send(self(), {__MODULE__, msg})
+  end
 end
