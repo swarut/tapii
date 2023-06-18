@@ -19,6 +19,14 @@ defmodule Tapii.Schedulers do
   """
   def list_schedulers do
     Repo.all(Scheduler)
+    |> Repo.preload(:query_template)
+  end
+
+  def list_active_schedulers do
+    query = from s in Scheduler,
+      where: s.active == true
+
+    Repo.all(query) |> Repo.preload(:query_template)
   end
 
   @doc """

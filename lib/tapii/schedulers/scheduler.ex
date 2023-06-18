@@ -6,7 +6,7 @@ defmodule Tapii.Schedulers.Scheduler do
     field :active, :boolean, default: false
     field :occurence, :integer
     field :schedule_time, :time
-    field :query_template_id, :id
+    belongs_to :query_template, Tapii.QueryEngines.QueryTemplate
 
     timestamps()
   end
