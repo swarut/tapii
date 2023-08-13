@@ -7,7 +7,7 @@ defmodule Tapii.QueryEngines.QueryTemplate do
     field :query, :string
     field :query_template_group_id, :id
 
-    has_many :schedulers, Scheduler
+    has_many :schedulers, Tapii.Schedulers.Scheduler
 
     timestamps()
   end

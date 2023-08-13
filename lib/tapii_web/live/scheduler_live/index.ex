@@ -51,6 +51,16 @@ defmodule TapiiWeb.SchedulerLive.Index do
     {:noreply, stream_delete(socket, :schedulers, scheduler)}
   end
 
+  @impl true
+  def handle_event("trigger", %{"id" => id}, socket) do
+    # scheduler = Schedulers.get_scheduler!(id)
+    # {:ok, _} = Schedulers.delete_scheduler(scheduler)
+    IO.puts("Trigger!!!! #{socket.assigns.live_action}")
+    Tapii.ScheduleExecutor.start_link(id)
+
+    {:noreply, socket |> put_flash(:info, "Scheduler was triggerred") }
+  end
+
   defp query_templates_for_options(query_templates) do
     query_templates
     |> Enum.map(fn t -> [key: t.name, value: t.id] end)

@@ -2,13 +2,12 @@ defmodule Tapii.ScheduleExecutor do
   use GenServer
   require Logger
 
-  defstruct [:interval_sec, :items]
+  defstruct [:interval_sec, :scheduler_id]
 
   # Server
   @impl true
-  def init(elements) do
-    items = String.split(elements, ",", trim: true)
-    state = %{interval_sec: 2, items: items}
+  def init(scheduler_id) do
+    state = %{interval_sec: 2, scheduler_id: scheduler_id}
 
     state
     |> schedule_work()
@@ -22,8 +21,8 @@ defmodule Tapii.ScheduleExecutor do
   end
   def perform_work(state) do
     IO.puts("ScheduleExecutor is working!")
-    random_number = Enum.random((1..100) |> Enum.to_list)
-    Tapii.SearchJobRequest.start_link(random_number)
+    # random_number = Enum.random((1..100) |> Enum.to_list)
+    Tapii.SearchJobRequest.start_link(state.scheduler_id)
     state
   end
 
@@ -54,7 +53,10 @@ defmodule Tapii.ScheduleExecutor do
   end
 
   # Client
-  def start_link(default) when is_binary(default) do
-    GenServer.start_link(__MODULE__, default, name: ScheduleExecutor)
+  # def start_link(default) when is_binary(default) do
+  #   GenServer.start_link(__MODULE__, default, name: ScheduleExecutor)
+  # end
+  def start_link(scheduler_id) do
+    GenServer.start_link(__MODULE__, scheduler_id, name: ScheduleExecutor)
   end
 end

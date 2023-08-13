@@ -21,6 +21,11 @@
       <.link navigate={~p"/schedulers/#{scheduler}"}>Show</.link>
     </div>
     <.link patch={~p"/schedulers/#{scheduler}/edit"}>Edit</.link>
+    <.link
+      phx-click={JS.push("trigger", value: %{id: scheduler.id})}
+    >
+      Trigger
+    </.link>
   </:action>
   <:action :let={{id, scheduler}}>
     <.link
