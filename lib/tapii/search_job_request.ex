@@ -12,7 +12,7 @@ defmodule Tapii.SearchJobRequest do
     headers = ["Authorization": "Basic c3Vlc01CZEVvRHNUYnY6bVJyUklxUUJ1MERCd3FPdjNXaXNoZ2VxMEVYNmNjM3BpYnRJdlBkRFpNaHdRN0gzdlVRYlRxUDhWNmJkVG5LbA==", "Content-Type": "application/json"]
     url = "https://api.sumologic.com/api/v1/search/jobs"
     query = "\"tenjin-production\" \"elearning calculation finished\" | json \"data.parent_client_division_scheme_uuid\" as cds_uuid | count by cds_uuid"
-    {:ok, data} = Poison.encode(%{query: query, from: "2023-05-26T01:00:00", to: "2023-05-26T01:03:00"})
+    {:ok, data} = Poison.encode(%{query: query, from: "2023-07-26T01:00:00", to: "2023-07-26T01:03:00"})
     {:ok, resp} = HTTPoison.post(url, data, headers)
     {:ok, body} = resp.body |> Poison.decode
 
