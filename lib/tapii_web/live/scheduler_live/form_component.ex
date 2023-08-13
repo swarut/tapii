@@ -76,6 +76,7 @@ defmodule TapiiWeb.SchedulerLive.FormComponent do
   defp save_scheduler(socket, :new, scheduler_params) do
     case Schedulers.create_scheduler(scheduler_params) do
       {:ok, scheduler} ->
+        scheduler = scheduler |> Schedulers.preload_scheduler_query_template()
         notify_parent({:saved, scheduler})
         Supervisor.start_link([{Pon, name: Tapii.Pon}],  strategy: :one_for_one)
 
