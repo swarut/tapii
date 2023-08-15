@@ -20,11 +20,11 @@ Tapii.Repo.delete_all(Tapii.QueryEngines.QueryTemplateGroup)
   name: "Tenjin - role_assignment_elearning queue size",
   query_template_group_id: tpg.id,
   query: """
-    "tenjin-production" "[SIDEKIQ_CLOUDWATCH_HELPER]" "role_assignment_elearning"
-    | parse "'role_assignment_elearning': *"" as queue_size
-    | timeslice 1m
-    | max(queue_size) as mq by _timeslice
-    | order by _timeslice desc
+  "tenjin-production" "[SIDEKIQ_CLOUDWATCH_HELPER]" "role_assignment_elearning"
+  | parse "'role_assignment_elearning': *" as queue_size
+  | timeslice 1m
+  | max(queue_size) as mq by _timeslice
+  | order by _timeslice desc
   """
 })
 
@@ -32,11 +32,11 @@ Tapii.Repo.delete_all(Tapii.QueryEngines.QueryTemplateGroup)
   name: "Tenjin - course_mapping_elearning queue size",
   query_template_group_id: tpg.id,
   query: """
-    "tenjin-production" "[SIDEKIQ_CLOUDWATCH_HELPER]" "course_mapping_elearning"
-    | parse "'course_mapping_elearning': *"" as queue_size
-    | timeslice 1m
-    | max(queue_size) as mq by _timeslice
-    | order by _timeslice desc
+  "tenjin-production" "[SIDEKIQ_CLOUDWATCH_HELPER]" "course_mapping_elearning"
+  | parse "'course_mapping_elearning': *" as queue_size
+  | timeslice 1m
+  | max(queue_size) as mq by _timeslice
+  | order by _timeslice desc
   """
 })
 
