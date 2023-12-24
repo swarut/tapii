@@ -8,7 +8,7 @@ defmodule Tapii.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Tapii.ScheduleExecutor, "aaa,bbb"},
+      # {Tapii.ScheduleExecutor, "aaa,bbb"},
       # Start the Telemetry supervisor
       TapiiWeb.Telemetry,
       # Start the Ecto repository

@@ -20,7 +20,7 @@ defmodule TapiiWeb.QueryTemplateLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:query]} type="text" label="Query" />
+        <.input field={@form[:query]} type="textarea" cols="40" rows="10" label="Query" />
         <.input field={@form[:query_template_group_id]} type="text" label="Query Template Group" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Query template</.button>
