@@ -13,11 +13,11 @@ defmodule Tapii.SearchJobRequest do
     Logger.info("[#{__MODULE__}] - Going to make a request - #{scheduler.id}")
 
 
-    headers = ["Authorization": "Basic c3UxazRIZno5OExkbFU6VEFrTTE0U1oyVE9jYUlMNDdENFZhV0Fvc1hwRTB1aXNrTmFZcUNNQ3Q5S3BjVDM0Q3lJQkE5QWdIWngwWWgwSQ==", "Content-Type": "application/json"]
+    headers = ["Authorization": "Basic c3U3VGpNazFsa1pMb2M6WlA1WjN4eWVaUmRab1VHZEx0RG9CQ1NEVzZ5ZEFIS3Y4VUI4Y0ZGZm9HMGEzT1F5MzlkRnE0TXF4aTFkQ1Z5RQ==", "Content-Type": "application/json"]
     url = "https://api.sumologic.com/api/v1/search/jobs"
     # query = "\"tenjin-production\" \"elearning calculation finished\" | json \"data.parent_client_division_scheme_uuid\" as cds_uuid | count by cds_uuid"
     query = scheduler.query_template.query
-    {:ok, data} = Poison.encode(%{query: query, from: "2023-07-26T01:00:00", to: "2023-07-26T01:03:00"})
+    {:ok, data} = Poison.encode(%{query: query, from: "2023-12-24T01:00:00", to: "2023-12-24T04:00:00"})
     {:ok, resp} = HTTPoison.post(url, data, headers)
     {:ok, body} = resp.body |> Poison.decode
 
