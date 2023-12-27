@@ -26,6 +26,12 @@
     >
       Trigger
     </.link>
+    haha
+    <.live_component
+      module={TapiiWeb.SchedulerLive.TriggerComponent}
+      id={scheduler.id || :new}
+      scheduler={scheduler}
+    />
   </:action>
   <:action :let={{id, scheduler}}>
     <.link

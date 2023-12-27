@@ -7,14 +7,20 @@ defmodule TapiiWeb.SchedulerLive.TriggerComponent do
   require Logger
 
   @impl true
+  def mount(_params, _session, socket) do
+    {:ok, socket}
+  end
+
+  @impl true
   def render(assigns) do
     ~H"""
     <div>
-      <.header>
-        Trigger
-      </.header>
+      ura
     </div>
     """
+    # <.header phx-click={JS.push("trigger", value: assigns[:scheduler].id)}>
+    #     Trigger Component for scheduler <%= assigns[:scheduler].id %>
+    #   </.header>
   end
 
   # @impl true
@@ -35,7 +41,7 @@ defmodule TapiiWeb.SchedulerLive.TriggerComponent do
     #   |> Map.put(:action, :validate)
 
     # {:noreply, assign_form(socket, changeset)}
-    IO.puts("Trigger component")
+    IO.puts("Trigger component --- uraura")
     {:noreply, socket}
   end
 end

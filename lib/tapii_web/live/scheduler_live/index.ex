@@ -7,6 +7,8 @@ defmodule TapiiWeb.SchedulerLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    Phoenix.PubSub.subscribe(Tapii.PubSub, "histories")
+
     {
       :ok,
       socket
@@ -41,6 +43,10 @@ defmodule TapiiWeb.SchedulerLive.Index do
   @impl true
   def handle_info({TapiiWeb.SchedulerLive.FormComponent, {:saved, scheduler}}, socket) do
     {:noreply, stream_insert(socket, :schedulers, scheduler)}
+  end
+  def handle_info({:new, history}, socket) do
+    socket = socket |> put_flash(:info, "Job was completed, the history was create.")
+    {:noreply, socket}
   end
 
   @impl true

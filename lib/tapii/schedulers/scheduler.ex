@@ -7,6 +7,7 @@ defmodule Tapii.Schedulers.Scheduler do
     field :occurence, :integer
     field :schedule_time, :time
     belongs_to :query_template, Tapii.QueryEngines.QueryTemplate
+    has_many :histories, Tapii.Schedulers.History
 
     timestamps()
   end

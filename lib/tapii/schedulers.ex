@@ -20,6 +20,7 @@ defmodule Tapii.Schedulers do
   def list_schedulers do
     Repo.all(Scheduler)
     |> Repo.preload(:query_template)
+    |> Repo.preload(:histories)
   end
 
   def list_active_schedulers do

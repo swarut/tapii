@@ -5,7 +5,7 @@ defmodule Tapii.Schedulers.History do
   schema "histories" do
     field :result, :string
     field :status, Ecto.Enum, values: [:completed, :cancelled, :failed]
-    field :scheduler_id, :id
+    belongs_to :scheduler, Tapii.Schedulers.Scheduler
 
     timestamps()
   end
