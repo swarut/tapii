@@ -23,6 +23,6 @@ defmodule Tapii.SearchJobRequest do
 
     Logger.info("[#{__MODULE__}] - Get search job created with id: #{body["id"]}, enqueueing job status checker")
 
-    Tapii.SearchJobStatusChecker.start_link(body["id"])
+    Tapii.SearchJobStatusChecker.start_link(body["id"], scheduler_id)
   end
 end

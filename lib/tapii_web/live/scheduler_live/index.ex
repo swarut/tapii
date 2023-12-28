@@ -45,7 +45,7 @@ defmodule TapiiWeb.SchedulerLive.Index do
     {:noreply, stream_insert(socket, :schedulers, scheduler)}
   end
   def handle_info({:new, history}, socket) do
-    socket = socket |> put_flash(:info, "Job was completed, the history was create.")
+    socket = socket |> put_flash(:info, "Job was completed, the history was create. #{history.id}")
     {:noreply, socket}
   end
 

@@ -13,7 +13,11 @@
   row_click={fn {_id, scheduler} -> JS.navigate(~p"/schedulers/#{scheduler}") end}
 >
   <:col :let={{_id, scheduler}} label="Schedule Time"><%= scheduler.schedule_time %></:col>
-  <:col :let={{_id, scheduler}} label="Query Template"><%= scheduler.query_template.name %></:col>
+  <:col :let={{_id, scheduler}} label="Query Template">
+    <%= scheduler.query_template.name %>
+
+    <.live_component module={TapiiWeb.SchedulerLive.HistoryListComponent} id={scheduler.id} histories={scheduler.histories} />
+  </:col>
   <:col :let={{_id, scheduler}} label="Occurence"><%= scheduler.occurence %></:col>
   <:col :let={{_id, scheduler}} label="Active"><%= scheduler.active %></:col>
   <:action :let={{_id, scheduler}}>
