@@ -44,7 +44,7 @@ defmodule Tapii.Schedulers do
       ** (Ecto.NoResultsError)
 
   """
-  def get_scheduler!(id), do: Repo.get!(Scheduler, id) |> Repo.preload(:query_template)
+  def get_scheduler!(id), do: Repo.get!(Scheduler, id) |> Repo.preload(:query_template) |> Repo.preload(:histories)
 
   @doc """
   Creates a scheduler.

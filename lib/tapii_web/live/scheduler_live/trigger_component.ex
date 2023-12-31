@@ -2,6 +2,7 @@ defmodule TapiiWeb.SchedulerLive.TriggerComponent do
   use TapiiWeb, :live_component
 
   # alias Tapii.Schedulers
+
   # alias Tapii.Pon
 
   require Logger
@@ -15,7 +16,7 @@ defmodule TapiiWeb.SchedulerLive.TriggerComponent do
   def render(assigns) do
     ~H"""
     <div>
-      ura
+      ura this is a sooner trigger component
     </div>
     """
     # <.header phx-click={JS.push("trigger", value: assigns[:scheduler].id)}>
