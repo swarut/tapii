@@ -28,14 +28,8 @@
     <.link
       phx-click={JS.push("trigger", value: %{id: scheduler.id})}
     >
-      Trigger
+      Trigger query job
     </.link>
-    haha
-    <.live_component
-      module={TapiiWeb.SchedulerLive.TriggerComponent}
-      id={scheduler.id || :new}
-      scheduler={scheduler}
-    />
   </:action>
   <:action :let={{id, scheduler}}>
     <.link
