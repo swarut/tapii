@@ -6,8 +6,6 @@ defmodule TapiiWeb.SchedulerLive.HistoryListComponent do
   def render(assigns) do
     ~H"""
     <div>
-      This is a list of history
-
       <.table
         id="scheduler-histories"
         rows={@histories}

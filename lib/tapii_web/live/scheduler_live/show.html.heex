@@ -9,10 +9,11 @@
 </.header>
 
 <.list>
-  <:item title="Time"><%= @scheduler.time %></:item>
   <:item title="Occurence"><%= @scheduler.occurence %></:item>
   <:item title="Active"><%= @scheduler.active %></:item>
 </.list>
+
+<.live_component module={TapiiWeb.SchedulerLive.HistoryListComponent} id={@scheduler.id} histories={@scheduler.histories} />
 
 <.back navigate={~p"/schedulers"}>Back to schedulers</.back>
 

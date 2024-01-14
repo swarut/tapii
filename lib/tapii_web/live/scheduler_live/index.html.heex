@@ -15,29 +15,27 @@
   <:col :let={{_id, scheduler}} label="Schedule Time"><%= scheduler.schedule_time %></:col>
   <:col :let={{_id, scheduler}} label="Query Template">
     <%= scheduler.query_template.name %>
-
+  </:col>
+  <:col :let={{_id, scheduler}} label="Histories">
     <.live_component module={TapiiWeb.SchedulerLive.HistoryListComponent} id={scheduler.id} histories={scheduler.histories} />
   </:col>
-  <:col :let={{_id, scheduler}} label="Occurence"><%= scheduler.occurence %></:col>
   <:col :let={{_id, scheduler}} label="Active"><%= scheduler.active %></:col>
-  <:action :let={{_id, scheduler}}>
-    <div class="sr-only">
+  <:action :let={{_id, scheduler}} >
+    <div class="sheduler-actions">
       <.link navigate={~p"/schedulers/#{scheduler}"}>Show</.link>
+      <.link patch={~p"/schedulers/#{scheduler}/edit"}>Edit</.link>
+      <.link phx-click={JS.push("trigger", value: %{id: scheduler.id})}>Trigger query job</.link>
     </div>
-    <.link patch={~p"/schedulers/#{scheduler}/edit"}>Edit</.link>
-    <.link
-      phx-click={JS.push("trigger", value: %{id: scheduler.id})}
-    >
-      Trigger query job
-    </.link>
   </:action>
   <:action :let={{id, scheduler}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: scheduler.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
+    <div class="sheduler-actions">
+      <.link
+        phx-click={JS.push("delete", value: %{id: scheduler.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </div>
   </:action>
 </.table>
 
