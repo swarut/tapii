@@ -21,46 +21,6 @@ defmodule TapiiWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
-    # Query template group - index
-    live "/query_template_groups", QueryTemplateGroupLive.Index, :index
-    live "/query_template_groups/new", QueryTemplateGroupLive.Index, :new
-    live "/query_template_groups/:id/edit", QueryTemplateGroupLive.Index, :edit
-    # Query template group - show
-    live "/query_template_groups/:id", QueryTemplateGroupLive.Show, :show
-    live "/query_template_groups/:id/show/edit", QueryTemplateGroupLive.Show, :edit
-
-    # Query template - index
-    live "/query_templates", QueryTemplateLive.Index, :index
-    live "/query_templates/new", QueryTemplateLive.Index, :new
-    live "/query_templates/:id/edit", QueryTemplateLive.Index, :edit
-    # Query template - show
-    live "/query_templates/:id", QueryTemplateLive.Show, :show
-    live "/query_templates/:id/show/edit", QueryTemplateLive.Show, :edit
-
-    # Scheduler - index
-    live "/schedulers", SchedulerLive.Index, :index
-    live "/schedulers/new", SchedulerLive.Index, :new
-    live "/schedulers/:id/edit", SchedulerLive.Index, :edit
-    # Scheduler - show
-    live "/schedulers/:id", SchedulerLive.Show, :show
-    live "/schedulers/:id/show/edit", SchedulerLive.Show, :edit
-
-    # Scheduler subscription - index
-    live "/scheduler_substitutions", SchedulerSubstitutionLive.Index, :index
-    live "/scheduler_substitutions/new", SchedulerSubstitutionLive.Index, :new
-    live "/scheduler_substitutions/:id/edit", SchedulerSubstitutionLive.Index, :edit
-    # Scheduler subscription - show
-    live "/scheduler_substitutions/:id", SchedulerSubstitutionLive.Show, :show
-    live "/scheduler_substitutions/:id/show/edit", SchedulerSubstitutionLive.Show, :edit
-
-    # History - index
-    live "/histories", HistoryLive.Index, :index
-    live "/histories/new", HistoryLive.Index, :new
-    live "/histories/:id/edit", HistoryLive.Index, :edit
-    # History - show
-    live "/histories/:id", HistoryLive.Show, :show
-    live "/histories/:id/show/edit", HistoryLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
@@ -108,6 +68,46 @@ defmodule TapiiWeb.Router do
       on_mount: [{TapiiWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserLive.UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserLive.UserSettingsLive, :confirm_email
+
+      # Query template group - index
+      live "/query_template_groups", QueryTemplateGroupLive.Index, :index
+      live "/query_template_groups/new", QueryTemplateGroupLive.Index, :new
+      live "/query_template_groups/:id/edit", QueryTemplateGroupLive.Index, :edit
+      # Query template group - show
+      live "/query_template_groups/:id", QueryTemplateGroupLive.Show, :show
+      live "/query_template_groups/:id/show/edit", QueryTemplateGroupLive.Show, :edit
+
+      # Query template - index
+      live "/query_templates", QueryTemplateLive.Index, :index
+      live "/query_templates/new", QueryTemplateLive.Index, :new
+      live "/query_templates/:id/edit", QueryTemplateLive.Index, :edit
+      # Query template - show
+      live "/query_templates/:id", QueryTemplateLive.Show, :show
+      live "/query_templates/:id/show/edit", QueryTemplateLive.Show, :edit
+
+      # Scheduler - index
+      live "/schedulers", SchedulerLive.Index, :index
+      live "/schedulers/new", SchedulerLive.Index, :new
+      live "/schedulers/:id/edit", SchedulerLive.Index, :edit
+      # Scheduler - show
+      live "/schedulers/:id", SchedulerLive.Show, :show
+      live "/schedulers/:id/show/edit", SchedulerLive.Show, :edit
+
+      # Scheduler subscription - index
+      live "/scheduler_substitutions", SchedulerSubstitutionLive.Index, :index
+      live "/scheduler_substitutions/new", SchedulerSubstitutionLive.Index, :new
+      live "/scheduler_substitutions/:id/edit", SchedulerSubstitutionLive.Index, :edit
+      # Scheduler subscription - show
+      live "/scheduler_substitutions/:id", SchedulerSubstitutionLive.Show, :show
+      live "/scheduler_substitutions/:id/show/edit", SchedulerSubstitutionLive.Show, :edit
+
+      # History - index
+      live "/histories", HistoryLive.Index, :index
+      live "/histories/new", HistoryLive.Index, :new
+      live "/histories/:id/edit", HistoryLive.Index, :edit
+      # History - show
+      live "/histories/:id", HistoryLive.Show, :show
+      live "/histories/:id/show/edit", HistoryLive.Show, :edit
     end
   end
 
