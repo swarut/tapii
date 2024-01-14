@@ -1,0 +1,9 @@
+(_sourceName=ecs-tenjin-production-*web* AND "\"New request from a remote host\"") OR _sourceName=ecs-tenjin-production-*web* and "request queue full"
+| json "data.remote_mauth_uuid" as service nodrop
+| parse "Returning HTTP * due to" as error nodrop
+| lookup mauth_app_name as app_name from path://"/Library/Users/sleeloy@mdsol.com/mauthapps" on mauth_app_uuid=service
+| if (isNull(app_name) and error = "503", "tenjin_req_queue_full", app_name) as app_name
+| where app_name <> "Checkmate" and !(isBlank(service) and isBlank(app_name))
+| timeslice {{window_interval}}
+| count by _timeslice, app_name
+| transpose row _timeslice column app_name
