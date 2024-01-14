@@ -28,6 +28,7 @@ defmodule Tapii.SearchJobStatusChecker do
         start_link(job_id, auth_token, scheduler_id)
       _ ->
         Logger.info("Job #{job_id} is having something wrong....")
+        Logger.info("Body -- #{inspect(body)}")
     end
   end
 end
