@@ -4,14 +4,14 @@ defmodule Tapii.SearchJobRetrieval do
 
   alias Tapii.Schedulers
 
-  def start_link(job_id, scheduler_id) do
-    Task.start_link(__MODULE__, :run, [job_id, scheduler_id])
+  def start_link(job_id, auth_token, scheduler_id) do
+    Task.start_link(__MODULE__, :run, [job_id, auth_token, scheduler_id])
   end
 
-  def run(job_id, scheduler_id) do
+  def run(job_id, auth_token, scheduler_id) do
     Logger.info("#{__MODULE__} - Retrieving result for job id #{job_id}, scheduler_id = #{scheduler_id}")
 
-    headers = ["Authorization": "Basic c3U3VGpNazFsa1pMb2M6WlA1WjN4eWVaUmRab1VHZEx0RG9CQ1NEVzZ5ZEFIS3Y4VUI4Y0ZGZm9HMGEzT1F5MzlkRnE0TXF4aTFkQ1Z5RQ==", "Content-Type": "application/json"]
+    headers = ["Authorization": "Basic #{auth_token}", "Content-Type": "application/json"]
     url = "https://api.sumologic.com/api/v1/search/jobs/#{job_id}/records?offset=0&limit=300"
 
     {:ok, resp} = HTTPoison.get(url, headers)

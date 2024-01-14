@@ -6,8 +6,10 @@ defmodule Tapii.ScheduleExecutor do
 
   # Server
   @impl true
-  def init(scheduler_id) do
-    state = %{interval_sec: 2, scheduler_id: scheduler_id}
+  def init({user_id, scheduler_id}) do
+    user = Tapii.Accounts.get_user!(user_id)
+    token = Tapii.Accounts.generate_sumo_auth_token(user)
+    state = %{interval_sec: 2, scheduler_id: scheduler_id, auth_token: token}
 
     state
     |> schedule_work()
@@ -22,7 +24,7 @@ defmodule Tapii.ScheduleExecutor do
   def perform_work(state) do
     IO.puts("ScheduleExecutor is working!")
     # random_number = Enum.random((1..100) |> Enum.to_list)
-    Tapii.SearchJobRequest.start_link(state.scheduler_id)
+    Tapii.SearchJobRequest.start_link(state.auth_token, state.scheduler_id)
     state
   end
 

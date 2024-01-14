@@ -59,11 +59,11 @@ defmodule TapiiWeb.SchedulerLive.Index do
   end
 
   @impl true
-  def handle_event("trigger", %{"id" => id}, socket) do
+  def handle_event("trigger", %{"id" => scheduler_id}, socket) do
     # scheduler = Schedulers.get_scheduler!(id)
     # {:ok, _} = Schedulers.delete_scheduler(scheduler)
-    IO.puts("Trigger!!!! #{socket.assigns.live_action}")
-    Tapii.ScheduleExecutor.start_link(id)
+    IO.puts("Trigger!!!! #{socket.assigns.live_action}  for user #{socket.assigns.current_user.id}")
+    Tapii.ScheduleExecutor.start_link({socket.assigns.current_user.id, scheduler_id})
 
     {:noreply, socket |> put_flash(:info, "Scheduler was triggerred") }
   end
