@@ -40,6 +40,18 @@ Tapii.Repo.delete_all(Tapii.QueryEngines.QueryTemplateGroup)
   """
 })
 
+{:ok, tp3} = Tapii.QueryEngines.create_query_template(%{
+  name: "Tenjin - course_mapping_elearning queue size",
+  query_template_group_id: tpg.id,
+  query: """
+  "tenjin-production"
+  "eLearning Calculation finished successfully"
+  | json "data.context_uri" as context_uri
+  | timeslice 1m
+  | count by _timeslice, context_uri
+  """
+})
+
 Tapii.Schedulers.create_scheduler(%{
   active: true,
   query_template_id: tp.id,
@@ -50,6 +62,13 @@ Tapii.Schedulers.create_scheduler(%{
 Tapii.Schedulers.create_scheduler(%{
   active: true,
   query_template_id: tp2.id,
+  occurence: 1,
+  schedule_time: "19:30:00"
+})
+
+Tapii.Schedulers.create_scheduler(%{
+  active: true,
+  query_template_id: tp3.id,
   occurence: 1,
   schedule_time: "19:30:00"
 })
